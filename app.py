@@ -5,7 +5,8 @@ import dash_html_components as html
 import dash_core_components as dcc
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output, State
-from transformers import AutoModelWithLMHead, AutoTokenizer
+#from transformers import AutoModelWithLMHead, AutoTokenizer
+from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 
 
@@ -15,8 +16,10 @@ print(f"Device: {device}")
 
 print("Start loading model...")
 name = "microsoft/DialoGPT-medium"
+
 tokenizer = AutoTokenizer.from_pretrained(name)
-model = AutoModelWithLMHead.from_pretrained(name)
+model = AutoModelForCausalLM.from_pretrained(name)
+#model = AutoModelWithLMHead.from_pretrained(name)
 
 # Switch to cuda, eval mode, and FP16 for faster inference
 if device == "cuda":
